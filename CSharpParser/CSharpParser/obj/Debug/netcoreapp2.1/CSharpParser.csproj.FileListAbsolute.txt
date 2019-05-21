@@ -1,0 +1,11 @@
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\bin\Debug\netcoreapp2.1\CSharpParser.deps.json
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\bin\Debug\netcoreapp2.1\CSharpParser.runtimeconfig.json
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\bin\Debug\netcoreapp2.1\CSharpParser.runtimeconfig.dev.json
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\bin\Debug\netcoreapp2.1\CSharpParser.dll
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\bin\Debug\netcoreapp2.1\CSharpParser.pdb
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\obj\Debug\netcoreapp2.1\CSharpParser.csprojAssemblyReference.cache
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\obj\Debug\netcoreapp2.1\CSharpParser.csproj.CoreCompileInputs.cache
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\obj\Debug\netcoreapp2.1\CSharpParser.AssemblyInfoInputs.cache
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\obj\Debug\netcoreapp2.1\CSharpParser.AssemblyInfo.cs
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\obj\Debug\netcoreapp2.1\CSharpParser.dll
+C:\Users\roman\Documents\GitHub\-C-Parser\CSharpParser\CSharpParser\obj\Debug\netcoreapp2.1\CSharpParser.pdb
