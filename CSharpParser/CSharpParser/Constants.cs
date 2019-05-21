@@ -15,6 +15,24 @@ namespace CSharpParser
             }
             set { }
         }
-        
+
+        public static string Anidub
+        {
+            get
+            {
+                return "https://anime.anidub.com/";
+            }
+            set { }
+        }
+
+        public static string UTF8
+        {
+            get
+            {
+                return "utf-8";
+            }
+            set { }
+        }
+
     }
 }
