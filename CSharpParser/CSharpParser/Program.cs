@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using HtmlAgilityPack;
 
 namespace CSharpParser
@@ -10,32 +11,42 @@ namespace CSharpParser
     {
         static void Main(string[] args)
         {
-            for (int i = 1; i < 308; i++)
+            for (int i = 1; i < 310; i++)
             {
                 WriteLenth(i);
                 System.Threading.Thread.Sleep(150);
-                //Console.ReadKey();
             }
 
-            //Console.ReadKey();
+            Console.ReadKey();
         }
 
-        public static async void WriteLenth(int i)
+        public static async void WriteLenth(int page)
         {
-            HtmlDocument Document = await GetAnidubSourceCodeAsync("page/" + i.ToString() + "/"); 
-            HtmlNodeCollection AnimeShortInfo = Document.DocumentNode.SelectNodes("//div[@class='news_short']/div[@class='newsfoot']/span/a");
-            for (int j = 0; j < 9; j++)
+            HtmlDocument Document = await GetAnidubSourceCodeAsync("page/" + page.ToString() + "/");
+            HtmlNodeCollection AnimeHeaders = Document.DocumentNode.SelectNodes("//div[@id='dle-content']/div[@class='newstitle']//a[@itemprop='name']");
+            HtmlNodeCollection AnimeDescriptions = Document.DocumentNode.SelectNodes("//div[@id='dle-content']/div[@class='news_short']//div[@class='maincont']//div[@style='display:inline;']");
+            HtmlNodeCollection AnimeURLs = Document.DocumentNode.SelectNodes("//div[@id='dle-content']/div[@class='news_short']//span[@class='newsmore']");
+            System.Threading.Thread.Sleep(20);
+            var SizeMas = AnimeHeaders.ToArray();
+            for (int i = 0; i < SizeMas.Length; i++)
             {
-                string s = AnimeShortInfo[j].Attributes["title"].Value.Replace("Смотреть ", "");
-                string end = "";
-                foreach (char sym in s)
+                var AnimeName = HttpUtility.HtmlDecode(AnimeHeaders[i].InnerText);
+                var AnimeURL = HttpUtility.HtmlDecode(AnimeURLs[i].SelectSingleNode("./a").Attributes["href"].Value);
+                var AnimeDescription = HttpUtility.HtmlDecode(AnimeDescriptions[i].InnerText);
+
+                string exitLine = "";
+                foreach (char sym in AnimeName)
                 {
                     if (sym != '/')
-                        end += sym;
+                        exitLine += sym;
                     else
                         break;
                 }
-                Console.WriteLine( end );
+                AnimeName = exitLine;
+
+                Console.WriteLine("---------------\n" + AnimeName);
+                Console.WriteLine(AnimeURL);
+                Console.WriteLine("\n" + AnimeDescription + "\n");
             }
 
         }
