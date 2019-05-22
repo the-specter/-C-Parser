@@ -1,10 +1,8 @@
-﻿using CSharpParser; // App namespace
-using System;
-using System.Net; // Для работы с Интернетом
-using System.Threading; // Для многопоточности
-using System.Diagnostics; // Для взаимодействия с внешними процесами
-using System.Text;
-using System.IO; // Stream
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace CSharpParser
 {
@@ -12,28 +10,47 @@ namespace CSharpParser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Загрузка . . .");
+            for (int i = 1; i < 308; i++)
+            {
+                WriteLenth(i);
+                System.Threading.Thread.Sleep(150);
+                //Console.ReadKey();
+            }
 
-            Uri Anidub = new Uri("https://anime.anidub.com/");
-            string ChromeUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
-            string UTF8 = "utf-8";
+            //Console.ReadKey();
+        }
 
-            WebClient Client = new WebClient();
-            Client.Encoding = Encoding.GetEncoding(UTF8); // Изменение стандартной кодировки на uft - 8 для отображения русских символов
-            Client.Headers.Add("user-agent", ChromeUserAgent); // User-Agent
+        public static async void WriteLenth(int i)
+        {
+            HtmlDocument Document = await GetAnidubSourceCodeAsync("page/" + i.ToString() + "/"); 
+            HtmlNodeCollection AnimeShortInfo = Document.DocumentNode.SelectNodes("//div[@class='news_short']/div[@class='newsfoot']/span/a");
+            for (int j = 0; j < 9; j++)
+            {
+                string s = AnimeShortInfo[j].Attributes["title"].Value.Replace("Смотреть ", "");
+                string end = "";
+                foreach (char sym in s)
+                {
+                    if (sym != '/')
+                        end += sym;
+                    else
+                        break;
+                }
+                Console.WriteLine( end );
+            }
 
-            Console.WriteLine("Загрузка сайта . . .");
-            Stream Site = Client.OpenRead(Anidub); // Загружает сайт
-            StreamReader SiteReader = new StreamReader(Site, Encoding.GetEncoding(UTF8)); // Считывает сайт
-            Console.WriteLine("Сайт загружен . . .");
+        }
 
-            Console.WriteLine(SiteReader.ReadToEnd()); // Выводит код страницы
+        public static async Task<HtmlDocument> GetAnidubSourceCodeAsync(string prefix)
+        {
+            var Anidub = new Uri("https://online.anidub.com/" + prefix);
+            var Client = new HttpClient();
+            var SourceCode = await Client.GetStringAsync(Anidub);
 
-            // Закрытие потоков
-            Site.Close();
-            SiteReader.Close();
+            var Document = new HtmlDocument();
+            Document.LoadHtml(SourceCode);
 
-            Console.ReadKey(); // Ожидание нажатия клавиши
+            return Document;
         }
     }
+
 }
