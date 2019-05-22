@@ -1,4 +1,4 @@
-# C# Parser
+# C# Scrapher
 __Tags: Console, C#, Web, .NET__
 
 # Fast transitions
